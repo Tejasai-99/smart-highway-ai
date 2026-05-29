@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Smart Highway AI</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+</head>
+
+<body class="bg-dark text-white">
+
+<div class="container mt-5">
+
+    <!-- TITLE -->
+
+    <h1 class="mb-4 text-center">
+        Smart Highway AI Surveillance
+    </h1>
+
+    <!-- SUCCESS MESSAGE -->
+
+    {% if message %}
+
+        <div class="alert alert-success text-center">
+            {{ message }}
+        </div>
+
+    {% endif %}
+
+    <!-- UPLOAD FORM -->
+
+    <div class="card bg-secondary p-4">
+
+        <form method="POST" enctype="multipart/form-data">
+
+            {% csrf_token %}
+
+            <!-- CAMERA A -->
+
+            <div class="mb-4">
+
+                <label class="form-label fs-5">
+                    Camera A Video
+                </label>
+
+                <input
+                    type="file"
+                    name="video_a"
+                    class="form-control"
+                    required
+                >
+
+            </div>
+
+            <!-- CAMERA B -->
+
+            <div class="mb-4">
+
+                <label class="form-label fs-5">
+                    Camera B Video
+                </label>
+
+                <input
+                    type="file"
+                    name="video_b"
+                    class="form-control"
+                    required
+                >
+
+            </div>
+
+            <!-- BUTTON -->
+
+            <div class="text-center">
+
+                <button
+                    type="submit"
+                    class="btn btn-success btn-lg"
+                >
+                    Start AI Analysis
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+    <!-- SHOW RESULTS ONLY AFTER ANALYSIS -->
+
+    {% if stats %}
+
+    <!-- MAIN ANALYTICS -->
+
+    <div class="mt-5">
+
+        <div class="card bg-black p-4 border border-success">
+
+            <h2 class="mb-4 text-center text-success">
+                Analysis Results
+            </h2>
+
+            <div class="row text-center">
+
+                <!-- TOTAL VEHICLES -->
+
+                <div class="col-md-4 mb-3">
+
+                    <div class="card bg-primary p-3">
+
+                        <h3>Total Vehicles</h3>
+
+                        <h1>
+                            {{ stats.total }}
+                        </h1>
+
+                    </div>
+
+                </div>
+
+                <!-- SAFE VEHICLES -->
+
+                <div class="col-md-4 mb-3">
+
+                    <div class="card bg-success p-3">
+
+                        <h3>Safe Vehicles</h3>
+
+                        <h1>
+                            {{ stats.safe }}
+                        </h1>
+
+                    </div>
+
+                </div>
+
+                <!-- MISSING VEHICLES -->
+
+                <div class="col-md-4 mb-3">
+
+                    <div class="card bg-danger p-3">
+
+                        <h3>Missing Vehicles</h3>
+
+                        <h1>
+                            {{ stats.missing }}
+                        </h1>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- VEHICLE TYPE ANALYTICS -->
+
+    <div class="mt-5">
+
+        <div class="card bg-dark border border-info p-4">
+
+            <h2 class="text-info mb-4 text-center">
+                Vehicle Type Analytics
+            </h2>
+
+            <div class="row text-center">
+
+                <!-- CARS -->
+
+                <div class="col-md-3 mb-3">
+
+                    <div class="card bg-primary p-3">
+
+                        <h4>Cars</h4>
+
+                        <h1>
+                            {{ stats.cars }}
+                        </h1>
+
+                    </div>
+
+                </div>
+
+                <!-- TRUCKS -->
+
+                <div class="col-md-3 mb-3">
+
+                    <div class="card bg-warning text-dark p-3">
+
+                        <h4>Trucks</h4>
+
+                        <h1>
+                            {{ stats.trucks }}
+                        </h1>
+
+                    </div>
+
+                </div>
+
+                <!-- BIKES -->
+
+                <div class="col-md-3 mb-3">
+
+                    <div class="card bg-success p-3">
+
+                        <h4>Bikes</h4>
+
+                        <h1>
+                            {{ stats.bikes }}
+                        </h1>
+
+                    </div>
+
+                </div>
+
+                <!-- BUSES -->
+
+                <div class="col-md-3 mb-3">
+
+                    <div class="card bg-danger p-3">
+
+                        <h4>Buses</h4>
+
+                        <h1>
+                            {{ stats.buses }}
+                        </h1>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ACCURACY CARD -->
+
+    <div class="mt-5">
+
+        <div class="card bg-info text-dark p-4 text-center">
+
+            <h2>
+                Detection Accuracy
+            </h2>
+
+            <h1 class="display-3">
+
+                {{ stats.accuracy }}%
+
+            </h1>
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+</body>
+
+</html>
